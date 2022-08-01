@@ -16,19 +16,22 @@ public class RichFunctionDemo {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
 
-        DataStreamSource<Event> eventDataStreamSource = env.fromElements(new Event("Mary", "./home", 1000),
+        DataStreamSource<Event> eventDataStreamSource = env.fromElements(
+                new Event("Mary", "./home", 1000),
                 new Event("Bob", "./cart", 2000),
                 new Event("John", "./fav", 3000),
-                new Event("James", "prod?id=10", 4000)
+                new Event("James", "prod?id=10", 4000),
+                new Event("James2", "prod?id=100", 5000),
+                new Event("James3", "prod?id=1000", 6000)
         );
 
-        eventDataStreamSource.map(new MyMapRichFunction()).setParallelism(2).
-                print().setParallelism(2);
+        eventDataStreamSource.map(new MyMapRichFunction()).setParallelism(3).
+                print().setParallelism(3);
 
         env.execute();
     }
 
-    public static class MyMapRichFunction extends RichMapFunction<Event, Integer> {
+    public static class MyMapRichFunction extends RichMapFunction<Event, String> {
 
         @Override
         public void open(Configuration parameters) throws Exception {
@@ -43,8 +46,8 @@ public class RichFunctionDemo {
         }
 
         @Override
-        public Integer map(Event event) throws Exception {
-            return event.userID.length();
+        public String map(Event event) throws Exception {
+            return event.userID;
         }
     }
 }

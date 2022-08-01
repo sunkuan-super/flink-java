@@ -17,7 +17,8 @@ public class KeyByDemo {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
 
-        DataStreamSource<Event> eventDataStreamSource = env.fromElements(new Event("Mary", "./home", 1000),
+        DataStreamSource<Event> eventDataStreamSource = env.fromElements(
+                new Event("Mary", "./home", 1000),
                 new Event("Bob", "./cart", 2000),
                 new Event("John", "./fav", 3000),
                 new Event("James", "prod?id=10", 4000),
