@@ -29,6 +29,7 @@ public class ClickSourceDemo implements SourceFunction<Event> {
             String url = urls[random.nextInt(urls.length)];
             long timeInMillis = Calendar.getInstance().getTimeInMillis();
             ctx.collect(new Event(user, url, timeInMillis));
+            Thread.sleep(1000);
         }
     }
 

@@ -16,6 +16,9 @@ public class CustomWatermarkDemo {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
+        // 可以设置周期性生成Watermark的频率，默认是200ms，也可以自己设置
+        env.getConfig().setAutoWatermarkInterval(100);
+
         DataStreamSource<Event> source = env.fromElements(
                 new Event("Mary", "./home", 1000),
                 new Event("Bob", "./cart", 2000),
@@ -48,6 +51,9 @@ public class CustomWatermarkDemo {
         }
     }
 
+    /**
+     * 周期性生成Watermark
+     */
     private static class CustomPeriodicGenerator implements WatermarkGenerator<Event> {
         private Long delayTime = 5000L; // 延迟时间
         private Long maxTs = Long.MIN_VALUE + delayTime + 1L; // 观察到的最大时间戳
