@@ -27,7 +27,7 @@ public class UrlViewCountExample {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        //env.setParallelism(1);
+         env.setParallelism(1);
         // 设置生成Watermark的周期性
         env.getConfig().setAutoWatermarkInterval(100);
         // 获取源
@@ -66,6 +66,7 @@ public class UrlViewCountExample {
 
         @Override
         public Long add(Event event, Long accumulator) {
+            System.out.println("accumulator = " + (accumulator + 1));
             return accumulator + 1;
         }
 
