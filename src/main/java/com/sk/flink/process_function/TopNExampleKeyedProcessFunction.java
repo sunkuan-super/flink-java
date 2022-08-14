@@ -105,6 +105,7 @@ public class TopNExampleKeyedProcessFunction {
         }
     }
 
+    // KeyedProcessFunction<K, I, O>
     public static class TopNKeyedProcessFunction extends KeyedProcessFunction<Long, UrlViewCount, String> {
 
         /**
@@ -136,7 +137,7 @@ public class TopNExampleKeyedProcessFunction {
         }
 
         /**
-         * 没来一个处理一次
+         * 每来一个处理一次
          *
          * @param value 来的元素
          * @param ctx
